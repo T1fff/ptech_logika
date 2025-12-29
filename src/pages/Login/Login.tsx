@@ -1,6 +1,15 @@
+import { Card, CardBody } from "@heroui/react";
+
 const Login = () => {
-    
-    return <div>Login Page</div>;
+    return (
+    <>
+        <Card>
+            <CardBody>
+                <p>This is the login page.</p>
+            </CardBody>
+        </Card>
+
+    </>);
 }
 
 
