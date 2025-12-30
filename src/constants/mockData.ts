@@ -351,3 +351,259 @@ export const marketplaceMockData: marketplaceMockData = {
     },
   ],
 };
+
+interface Contenido {
+  id: number;
+  title: string;
+  excerpt: string;
+  author: {
+    name: string;
+    role: string;
+  };
+  category: string;
+  publishedAt: string;
+  readTime: number;
+  views: number;
+  likes: number;
+  comments: number;
+  tags: string[];
+}
+
+export const contenidosMockData: Contenido[] = [
+  {
+    id: 1,
+    title: 'Cómo las pequeñas acciones generan grandes cambios en tu comunidad',
+    excerpt:
+      'Descubre cómo iniciativas simples pueden transformar el entorno social y crear un impacto duradero en las comunidades más vulnerables.',
+    author: {
+      name: 'María Fernanda López',
+      role: 'Coordinadora de Impacto Social',
+    },
+    category: 'Impacto Social',
+    publishedAt: '2024-12-28',
+    readTime: 8,
+    views: 3421,
+    likes: 287,
+    comments: 45,
+    tags: ['Comunidad', 'Impacto', 'Voluntariado'],
+  },
+  {
+    id: 2,
+    title: '10 formas de contribuir al medio ambiente desde casa',
+    excerpt:
+      'Tips prácticos para reducir tu huella ecológica y ser parte del cambio ambiental que el planeta necesita.',
+    author: { name: 'Carlos Ruiz', role: 'Especialista Ambiental' },
+    category: 'Medio Ambiente',
+    publishedAt: '2024-12-26',
+    readTime: 6,
+    views: 2156,
+    likes: 198,
+    comments: 32,
+    tags: ['Ecología', 'Sostenibilidad', 'Tips'],
+  },
+  {
+    id: 3,
+    title: 'El poder de la educación gratuita en zonas rurales',
+    excerpt:
+      'Historias inspiradoras de cómo el acceso a educación está cambiando vidas en comunidades apartadas de Colombia.',
+    author: { name: 'Ana Martínez', role: 'Coordinadora de Educación' },
+    category: 'Educación',
+    publishedAt: '2024-12-24',
+    readTime: 10,
+    views: 4521,
+    likes: 412,
+    comments: 67,
+    tags: ['Educación', 'Rural', 'Historias'],
+  },
+  {
+    id: 4,
+    title: 'Voluntariado corporativo: Beneficios para empresas y sociedad',
+    excerpt:
+      'Cómo las empresas están integrando programas de voluntariado que generan valor compartido.',
+    author: { name: 'Luis Torres', role: 'Consultor RSE' },
+    category: 'Empresas',
+    publishedAt: '2024-12-22',
+    readTime: 7,
+    views: 1876,
+    likes: 145,
+    comments: 28,
+    tags: ['RSE', 'Empresas', 'Voluntariado'],
+  },
+  {
+    id: 5,
+    title: 'Recetas nutritivas con ingredientes locales',
+    excerpt: 'Aprende a preparar comidas saludables y económicas usando productos de tu región.',
+    author: { name: 'Sofía Ramírez', role: 'Nutricionista' },
+    category: 'Alimentación',
+    publishedAt: '2024-12-20',
+    readTime: 5,
+    views: 2943,
+    likes: 321,
+    comments: 89,
+    tags: ['Nutrición', 'Recetas', 'Local'],
+  },
+  {
+    id: 6,
+    title: 'Testimonios: Familias que superaron la pobreza con apoyo comunitario',
+    excerpt:
+      'Conoce las historias reales de familias que lograron salir adelante gracias a programas sociales.',
+    author: { name: 'Roberto Díaz', role: 'Trabajador Social' },
+    category: 'Testimonios',
+    publishedAt: '2024-12-18',
+    readTime: 12,
+    views: 5234,
+    likes: 523,
+    comments: 102,
+    tags: ['Testimonios', 'Inspiración', 'Superación'],
+  },
+];
+
+export interface CategoriaAccion {
+  id: number;
+  name: string;
+  slug: string;
+  description: string;
+  color: string;
+  actionsCount: number;
+  activeUsers: number;
+  totalImpact: number;
+  subcategories: { id: number; name: string; count: number }[];
+  topActions: { name: string; participants: number }[];
+  trend: string;
+}
+
+// CATEGORÍAS DE ACCIONES MOCK DATA
+export const categoriasAccionesMockData: CategoriaAccion[] = [
+  {
+    id: 1,
+    name: 'Educación y Formación',
+    slug: 'educacion',
+    description: 'Acciones orientadas a mejorar el acceso y calidad educativa',
+    color: '#3B82F6',
+    actionsCount: 156,
+    activeUsers: 2341,
+    totalImpact: 12500,
+    subcategories: [
+      { id: 11, name: 'Clases de Refuerzo', count: 45 },
+      { id: 12, name: 'Alfabetización', count: 32 },
+      { id: 13, name: 'Capacitación Técnica', count: 38 },
+      { id: 14, name: 'Becas y Ayudas', count: 41 },
+    ],
+    topActions: [
+      { name: 'Clases de matemáticas', participants: 234 },
+      { name: 'Taller de lectura para niños', participants: 189 },
+      { name: 'Curso de computación básica', participants: 156 },
+    ],
+    trend: '+15%',
+  },
+  {
+    id: 2,
+    name: 'Medio Ambiente',
+    slug: 'medio-ambiente',
+    description: 'Iniciativas para la conservación y protección ambiental',
+    color: '#10B981',
+    actionsCount: 142,
+    activeUsers: 3127,
+    totalImpact: 15678,
+    subcategories: [
+      { id: 21, name: 'Reforestación', count: 48 },
+      { id: 22, name: 'Limpieza de Playas', count: 36 },
+      { id: 23, name: 'Reciclaje', count: 34 },
+      { id: 24, name: 'Conservación', count: 24 },
+    ],
+    topActions: [
+      { name: 'Jornada de siembra de árboles', participants: 412 },
+      { name: 'Limpieza costera mensual', participants: 298 },
+      { name: 'Campaña de reciclaje escolar', participants: 267 },
+    ],
+    trend: '+23%',
+  },
+  {
+    id: 3,
+    name: 'Alimentación y Nutrición',
+    slug: 'alimentacion',
+    description: 'Apoyo en seguridad alimentaria y nutrición comunitaria',
+    color: '#F59E0B',
+    actionsCount: 128,
+    activeUsers: 1876,
+    totalImpact: 18934,
+    subcategories: [
+      { id: 31, name: 'Comedores Comunitarios', count: 42 },
+      { id: 32, name: 'Bancos de Alimentos', count: 38 },
+      { id: 33, name: 'Huertas Urbanas', count: 28 },
+      { id: 34, name: 'Educación Nutricional', count: 20 },
+    ],
+    topActions: [
+      { name: 'Comedor comunitario semanal', participants: 523 },
+      { name: 'Distribución de mercados', participants: 445 },
+      { name: 'Huerta comunitaria urbana', participants: 178 },
+    ],
+    trend: '+18%',
+  },
+  {
+    id: 4,
+    name: 'Salud y Bienestar',
+    slug: 'salud',
+    description: 'Promoción de salud y acceso a servicios médicos básicos',
+    color: '#EF4444',
+    actionsCount: 94,
+    activeUsers: 1543,
+    totalImpact: 8765,
+    subcategories: [
+      { id: 41, name: 'Jornadas de Salud', count: 32 },
+      { id: 42, name: 'Apoyo Psicológico', count: 28 },
+      { id: 43, name: 'Deporte y Recreación', count: 22 },
+      { id: 44, name: 'Prevención', count: 12 },
+    ],
+    topActions: [
+      { name: 'Jornada de vacunación', participants: 287 },
+      { name: 'Grupo de apoyo emocional', participants: 156 },
+      { name: 'Caminata recreativa familiar', participants: 234 },
+    ],
+    trend: '+12%',
+  },
+  {
+    id: 5,
+    name: 'Vivienda y Hábitat',
+    slug: 'vivienda',
+    description: 'Mejoramiento de viviendas y espacios comunitarios',
+    color: '#8B5CF6',
+    actionsCount: 67,
+    activeUsers: 892,
+    totalImpact: 4532,
+    subcategories: [
+      { id: 51, name: 'Construcción', count: 24 },
+      { id: 52, name: 'Reparaciones', count: 21 },
+      { id: 53, name: 'Mejoras Locativas', count: 14 },
+      { id: 54, name: 'Espacios Públicos', count: 8 },
+    ],
+    topActions: [
+      { name: 'Mejora de techos comunitarios', participants: 98 },
+      { name: 'Pintura de escuela local', participants: 134 },
+      { name: 'Parque infantil comunitario', participants: 176 },
+    ],
+    trend: '+8%',
+  },
+  {
+    id: 6,
+    name: 'Cultura y Arte',
+    slug: 'cultura',
+    description: 'Fomento de expresiones culturales y artísticas',
+    color: '#EC4899',
+    actionsCount: 89,
+    activeUsers: 1234,
+    totalImpact: 6789,
+    subcategories: [
+      { id: 61, name: 'Talleres Artísticos', count: 34 },
+      { id: 62, name: 'Eventos Culturales', count: 28 },
+      { id: 63, name: 'Música y Danza', count: 18 },
+      { id: 64, name: 'Patrimonio', count: 9 },
+    ],
+    topActions: [
+      { name: 'Taller de pintura para jóvenes', participants: 145 },
+      { name: 'Festival cultural barrial', participants: 389 },
+      { name: 'Clases de música gratuitas', participants: 112 },
+    ],
+    trend: '+20%',
+  },
+];
