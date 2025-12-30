@@ -14,7 +14,7 @@ const Categories = () => {
           Estas son las categorias que manejamos actualmente. Siéntete libre de explorarlas y
           conocer más sobre cada una.
         </p>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4">
           {categoriasAccionesMockData?.map((category) => (
             <div
               key={category.id}

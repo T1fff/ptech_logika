@@ -165,7 +165,6 @@ export const testimonialsMockData: Testimonial[] = [
 export interface Sponsor {
   id: number;
   name: string;
-  logo: string;
   tier: 'Platino' | 'Oro' | 'Plata' | 'Bronce';
   category: string;
   since: string;
@@ -181,7 +180,6 @@ export const sponsorsMockData: Sponsor[] = [
   {
     id: 1,
     name: 'Fundación Banco de Alimentos',
-    logo: '🏛️',
     tier: 'Platino',
     category: 'Alimentación',
     since: '2023',
@@ -196,7 +194,6 @@ export const sponsorsMockData: Sponsor[] = [
   {
     id: 2,
     name: 'EcoVerde Colombia',
-    logo: '🌿',
     tier: 'Oro',
     category: 'Medio Ambiente',
     since: '2024',
@@ -210,7 +207,6 @@ export const sponsorsMockData: Sponsor[] = [
   {
     id: 3,
     name: 'TechEducate',
-    logo: '💻',
     tier: 'Oro',
     category: 'Educación',
     since: '2023',
@@ -540,70 +536,5 @@ export const categoriasAccionesMockData: CategoriaAccion[] = [
     ],
     trend: '+18%',
   },
-  {
-    id: 4,
-    name: 'Salud y Bienestar',
-    slug: 'salud',
-    description: 'Promoción de salud y acceso a servicios médicos básicos',
-    color: '#EF4444',
-    actionsCount: 94,
-    activeUsers: 1543,
-    totalImpact: 8765,
-    subcategories: [
-      { id: 41, name: 'Jornadas de Salud', count: 32 },
-      { id: 42, name: 'Apoyo Psicológico', count: 28 },
-      { id: 43, name: 'Deporte y Recreación', count: 22 },
-      { id: 44, name: 'Prevención', count: 12 },
-    ],
-    topActions: [
-      { name: 'Jornada de vacunación', participants: 287 },
-      { name: 'Grupo de apoyo emocional', participants: 156 },
-      { name: 'Caminata recreativa familiar', participants: 234 },
-    ],
-    trend: '+12%',
-  },
-  {
-    id: 5,
-    name: 'Vivienda y Hábitat',
-    slug: 'vivienda',
-    description: 'Mejoramiento de viviendas y espacios comunitarios',
-    color: '#8B5CF6',
-    actionsCount: 67,
-    activeUsers: 892,
-    totalImpact: 4532,
-    subcategories: [
-      { id: 51, name: 'Construcción', count: 24 },
-      { id: 52, name: 'Reparaciones', count: 21 },
-      { id: 53, name: 'Mejoras Locativas', count: 14 },
-      { id: 54, name: 'Espacios Públicos', count: 8 },
-    ],
-    topActions: [
-      { name: 'Mejora de techos comunitarios', participants: 98 },
-      { name: 'Pintura de escuela local', participants: 134 },
-      { name: 'Parque infantil comunitario', participants: 176 },
-    ],
-    trend: '+8%',
-  },
-  {
-    id: 6,
-    name: 'Cultura y Arte',
-    slug: 'cultura',
-    description: 'Fomento de expresiones culturales y artísticas',
-    color: '#EC4899',
-    actionsCount: 89,
-    activeUsers: 1234,
-    totalImpact: 6789,
-    subcategories: [
-      { id: 61, name: 'Talleres Artísticos', count: 34 },
-      { id: 62, name: 'Eventos Culturales', count: 28 },
-      { id: 63, name: 'Música y Danza', count: 18 },
-      { id: 64, name: 'Patrimonio', count: 9 },
-    ],
-    topActions: [
-      { name: 'Taller de pintura para jóvenes', participants: 145 },
-      { name: 'Festival cultural barrial', participants: 389 },
-      { name: 'Clases de música gratuitas', participants: 112 },
-    ],
-    trend: '+20%',
-  },
+  
 ];

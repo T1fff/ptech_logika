@@ -32,16 +32,14 @@ const Sponsors = () => {
               key={sponsor.id}
               className="bg-slate-100/50 backdrop-blur-sm border border-slate-200 rounded-xl overflow-hidden hover:border-slate-600 transition-all group"
             >
-              <div
-                className={`h-32 bg-gradient-to-br ${getTierColor(sponsor.tier)} flex items-center justify-center`}
-              >
-                <div className="text-6xl">{sponsor.logo}</div>
-              </div>
+              
               <div className="p-6">
                 <div className="flex items-start justify-between mb-3">
                   <div>
                     <h3 className="text-xl font-bold mb-1">{sponsor.name}</h3>
-                    <span className="text-xs px-2 py-1 bg-blue-500/20 text-blue-400 rounded-full">
+                    <span
+                      className={`text-xs px-2 py-1 bg-blue-500/20 text-blue-900 rounded-full bg-gradient-to-br ${getTierColor(sponsor.tier)}`}
+                    >
                       {sponsor.tier}
                     </span>
                   </div>
