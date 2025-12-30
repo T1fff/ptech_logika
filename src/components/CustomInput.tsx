@@ -1,6 +1,6 @@
 import { Input } from '@heroui/react';
 
-const myInput = ({
+const CustomInput = ({
   customStyles,
   customLabel,
   customPlaceholder,
@@ -45,7 +45,7 @@ const myInput = ({
   );
 };
 
-export default myInput;
+export default CustomInput;
 
 type Props = {
   customStyles?: object;
