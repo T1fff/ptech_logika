@@ -70,11 +70,8 @@ export interface Testimonial {
 }
 
 export interface ImpactoMockData {
-  overview: ImpactOverview;
   impactByCategory: ImpactByCategory[];
-  timelineImpact: TimelineImpact[];
   regionalDistribution: RegionalDistribution[];
-  testimonials: Testimonial[];
 }
 
 // mockData.ts
@@ -115,12 +112,6 @@ export const homeMockData: HomeMockData = {
 };
 
 export const impactoMockData: ImpactoMockData = {
-  overview: {
-    totalBeneficiaries: 45230,
-    volunteersHours: 12456,
-    resourcesDonated: 234567,
-    communitiesImpacted: 127,
-  },
   impactByCategory: [
     { category: 'Educación', beneficiarios: 12500, recursos: 45000, voluntarios: 320 },
     { category: 'Medio Ambiente', beneficiarios: 8900, recursos: 67000, voluntarios: 450 },
@@ -128,39 +119,12 @@ export const impactoMockData: ImpactoMockData = {
     { category: 'Salud', beneficiarios: 5430, recursos: 23000, voluntarios: 190 },
     { category: 'Vivienda', beneficiarios: 2800, recursos: 10567, voluntarios: 95 },
   ],
-  timelineImpact: [
-    { mes: 'Ene', beneficiarios: 5200, voluntarios: 850 },
-    { mes: 'Feb', beneficiarios: 6800, voluntarios: 1100 },
-    { mes: 'Mar', beneficiarios: 8400, voluntarios: 1450 },
-    { mes: 'Abr', beneficiarios: 11200, voluntarios: 1890 },
-    { mes: 'May', beneficiarios: 15600, voluntarios: 2340 },
-    { mes: 'Jun', beneficiarios: 18900, voluntarios: 2780 },
-    { mes: 'Jul', beneficiarios: 22300, voluntarios: 3210 },
-    { mes: 'Ago', beneficiarios: 28700, voluntarios: 3890 },
-    { mes: 'Sep', beneficiarios: 34200, voluntarios: 4560 },
-    { mes: 'Oct', beneficiarios: 38900, voluntarios: 5120 },
-    { mes: 'Nov', beneficiarios: 42100, voluntarios: 5680 },
-    { mes: 'Dic', beneficiarios: 45230, voluntarios: 6200 },
-  ],
+
   regionalDistribution: [
     { region: 'Costa Atlántica', percentage: 35, value: 15830 },
     { region: 'Región Andina', percentage: 28, value: 12664 },
     { region: 'Región Pacífica', percentage: 18, value: 8141 },
     { region: 'Amazonía', percentage: 12, value: 5428 },
     { region: 'Orinoquía', percentage: 7, value: 3167 },
-  ],
-  testimonials: [
-    {
-      id: 1,
-      name: 'Sofía Ramírez',
-      community: 'Cartagena',
-      text: 'Gracias a las iniciativas de educación, 50 niños ahora tienen acceso a clases de refuerzo',
-    },
-    {
-      id: 2,
-      name: 'Roberto Díaz',
-      community: 'Barranquilla',
-      text: 'La campaña de reforestación ha plantado más de 5,000 árboles en nuestra comunidad',
-    },
   ],
 };

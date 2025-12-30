@@ -21,6 +21,7 @@ export const Home = () => {
     <DashContainer>
       <div className="p-8">
         <h1 className="font-semibold text-4xl mb-4">Welcome Back!</h1>
+        <p className='mb-4 opacity-75'>Aquí podrás consultar una visión general del proyecto.</p>
         <div className="space-y-6">
           {/* Stats Cards */}
           <div className="grid grid-cols-4 gap-4 animate-[pulse_1s_ease-in-out]">
