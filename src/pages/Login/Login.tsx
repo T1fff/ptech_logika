@@ -49,7 +49,7 @@ const Login = () => {
               </p>
             </div>
 
-            <Button className="w-60 mt-8 bg-blue-900 text-blue-100 rounded-sm">Ingresar</Button>
+            <Button className="w-60 mt-8 mb-5 bg-blue-900 text-blue-100 rounded-sm">Ingresar</Button>
           </CardBody>
         </Card>
       </div>
