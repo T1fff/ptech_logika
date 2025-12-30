@@ -12,6 +12,7 @@
   "dependencies": {
     "@heroui/react": "^2.8.7",
     "@tailwindcss/vite": "^4.1.18",
+    "axios": "^1.13.2",
     "framer-motion": "^12.23.26",
     "lucide-react": "^0.562.0",
     "prettier": "^3.7.4",

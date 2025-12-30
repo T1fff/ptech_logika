@@ -5,14 +5,21 @@ import logout from '@assets/navbar/logout.svg';
 
 import OPTIONSMENU from '@/constants/navbar';
 import { useNavigate } from 'react-router';
+import { useAuth } from '@/hooks/useAuth';
 
 const Navbar = () => {
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
   const navigate = useNavigate();
+   const { signout } = useAuth();
 
   const handleOnClick = (index: number, path: string) => {
     setSelectedIndex(index);
     navigate(path);
+  };
+
+  const handleSignOut = () => {
+    signout();
+    navigate('/login');
   };
   return (
     <>
@@ -41,7 +48,7 @@ const Navbar = () => {
             })}
           </div>
         </div>
-        <div className="p-6 flex mb-5 items-center justify-center w-full gap-2">
+        <div onClick={handleSignOut} className="p-6 flex mb-5 items-center justify-center w-full gap-2 hover:bg-blue-100">
           <Image src={logout} className="h-[20px]" alt="logo" />
           <p>Cerrar sesión</p>
         </div>

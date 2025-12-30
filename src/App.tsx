@@ -1,12 +1,15 @@
-import AppRoutes from "./AppRoutes"
+import AppRoutes from './AppRoutes';
+import { AuthProvider } from '@/hooks/useAuth';
+
 
 function App() {
-
   return (
     <>
-      <AppRoutes />
+      <AuthProvider>
+        <AppRoutes />
+      </AuthProvider>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
