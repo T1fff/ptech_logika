@@ -222,3 +222,132 @@ export const sponsorsMockData: Sponsor[] = [
     color: '#FDE047',
   },
 ];
+
+export interface marketplaceMockData {
+  categories: MarketplaceCategories[];
+  featured: MarketplaceItem[];
+}
+
+export interface MarketplaceItem {
+  id: number;
+  name: string;
+  vendor: string;
+  category: string;
+  price: number;
+  originalPrice: number | null;
+  discount: number;
+  rating: number;
+  reviews: number;
+  sold: number;
+  impact: string;
+  badge: string;
+  inStock: boolean;
+}
+
+export interface MarketplaceCategories {
+  id: number;
+  name: string;
+  count: number;
+}
+
+export const marketplaceMockData: marketplaceMockData = {
+  categories: [
+    { id: 1, name: 'Artesanías', count: 1 },
+    { id: 2, name: 'Alimentos', count: 2 },
+    { id: 3, name: 'Ropa', count: 1 },
+    { id: 4, name: 'Hogar', count: 2 },
+    { id: 5, name: 'Servicios', count: 0 },
+  ],
+  featured: [
+    {
+      id: 1,
+      name: 'Mochila Wayuu Artesanal',
+      vendor: 'Fundación Manos Amigas',
+      category: 'Artesanías',
+      price: 85000,
+      originalPrice: 120000,
+      discount: 29,
+      rating: 4.8,
+      reviews: 127,
+      sold: 89,
+      impact: 'Cada compra apoya a 3 artesanas indígenas',
+      badge: 'Comercio Justo',
+      inStock: true,
+    },
+    {
+      id: 2,
+      name: 'Café Orgánico 500g',
+      vendor: 'Fundación Manos Amigas',
+      category: 'Alimentos',
+      price: 32000,
+      originalPrice: 45000,
+      discount: 28,
+      rating: 4.9,
+      reviews: 234,
+      sold: 456,
+      impact: '100% de las ganancias van a agricultores locales',
+      badge: 'Orgánico',
+      inStock: true,
+    },
+    {
+      id: 3,
+      name: 'Camiseta Reciclada',
+      vendor: 'Alimentos para Todos',
+      category: 'Ropa',
+      price: 45000,
+      originalPrice: null,
+      discount: 0,
+      rating: 4.7,
+      reviews: 89,
+      sold: 234,
+      impact: 'Hecha con 8 botellas plásticas recicladas',
+      badge: 'Eco-Friendly',
+      inStock: true,
+    },
+    {
+      id: 4,
+      name: 'Miel de Abeja Pura 250ml',
+      vendor: 'Jardines Comunitarios',
+      category: 'Alimentos',
+      price: 28000,
+      originalPrice: 35000,
+      discount: 20,
+      rating: 5.0,
+      reviews: 178,
+      sold: 345,
+      impact: 'Apoya a 12 familias apicultoras',
+      badge: '100% Natural',
+      inStock: true,
+    },
+    {
+      id: 5,
+      name: 'Maceta Cerámica Pintada',
+      vendor: 'Jardines Comunitarios',
+      category: 'Hogar',
+      price: 38000,
+      originalPrice: null,
+      discount: 0,
+      rating: 4.6,
+      reviews: 56,
+      sold: 123,
+      impact: 'Elaborada por jóvenes en formación laboral',
+      badge: 'Hecho a Mano',
+      inStock: false,
+    },
+    {
+      id: 6,
+      name: 'Jabón Artesanal Pack x5',
+      vendor: 'Alimentos para Todos',
+      category: 'Hogar',
+      price: 25000,
+      originalPrice: 32000,
+      discount: 21,
+      rating: 4.9,
+      reviews: 201,
+      sold: 567,
+      impact: 'Genera empleo para 15 madres cabeza de hogar',
+      badge: 'Sin Químicos',
+      inStock: true,
+    },
+  ],
+};
