@@ -159,6 +159,66 @@ export const testimonialsMockData: Testimonial[] = [
     name: 'Valentina Gómez',
     community: 'Jardines Comunitarios',
     text: 'Ser parte de esta iniciativa nos ha dado las herramientas para crear un cambio sostenible en nuestra comunidad.',
-  }
+  },
+];
 
+export interface Sponsor {
+  id: number;
+  name: string;
+  logo: string;
+  tier: 'Platino' | 'Oro' | 'Plata' | 'Bronce';
+  category: string;
+  since: string;
+  contribution: number;
+  beneficiaries: number;
+  projects: number;
+  description: string;
+  website: string;
+  color: string;
+}
+
+export const sponsorsMockData: Sponsor[] = [
+  {
+    id: 1,
+    name: 'Fundación Banco de Alimentos',
+    logo: '🏛️',
+    tier: 'Platino',
+    category: 'Alimentación',
+    since: '2023',
+    contribution: 150000,
+    beneficiaries: 12500,
+    projects: 24,
+    description:
+      'Principal aliado en la lucha contra el hambre, distribuyendo alimentos a comunidades vulnerables',
+    website: 'www.bancodealimentos.org',
+    color: '#E5E7EB',
+  },
+  {
+    id: 2,
+    name: 'EcoVerde Colombia',
+    logo: '🌿',
+    tier: 'Oro',
+    category: 'Medio Ambiente',
+    since: '2024',
+    contribution: 85000,
+    beneficiaries: 8900,
+    projects: 15,
+    description: 'Comprometidos con la reforestación y conservación de ecosistemas naturales',
+    website: 'www.ecoverde.co',
+    color: '#FDE047',
+  },
+  {
+    id: 3,
+    name: 'TechEducate',
+    logo: '💻',
+    tier: 'Oro',
+    category: 'Educación',
+    since: '2023',
+    contribution: 72000,
+    beneficiaries: 6700,
+    projects: 18,
+    description: 'Brindando acceso a educación tecnológica para jóvenes de bajos recursos',
+    website: 'www.techeducate.org',
+    color: '#FDE047',
+  },
 ];
