@@ -5,11 +5,15 @@ export type AuthState = {
   isAuthenticated: () => boolean;
 };
 
-export type LoginResponse = { token: string };
 
 export type AuthContextType = {
   token: string | null;
-  signin: (email: string, password: string) => Promise<void>;
+  signin: (username: string, password: string) => Promise<string>;
   signout: () => Promise<void>;
   isAuthenticated: boolean;
+};
+
+export type FormValues = {
+  username: string;
+  password: string;
 };

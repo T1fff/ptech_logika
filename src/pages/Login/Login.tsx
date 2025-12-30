@@ -1,4 +1,4 @@
-import { Button, Card, CardBody, Image } from '@heroui/react';
+import { Button, Card, CardBody, Image, Form, Spinner } from '@heroui/react';
 import logoPrincipal from '@assets/mainLogo.svg';
 import emailIcon from '@assets/login/emailIcon.svg';
 import lockIcon from '@assets/login/lockIcon.svg';
@@ -6,12 +6,30 @@ import eyeOffIcon from '@assets/login/eyeOff.svg';
 import eyeOnIcon from '@assets/login/eyeOn.svg';
 
 import { useState } from 'react';
-import { useNavigate } from 'react-router';
 import CustomInput from '@/components/CustomInput';
+import { useForm } from 'react-hook-form';
+import type { FormValues } from '@/types/auth';
+import { useAuth } from '@/hooks/useAuth';
 
 const Login = () => {
   const [show, setShow] = useState(false);
-  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const { signin } = useAuth();
+  const { control, handleSubmit } = useForm<FormValues>({
+    defaultValues: { username: '', password: '' },
+  });
+
+  const onSubmit = async (data: FormValues) => {
+    setLoading(true);
+    try {
+      await signin(data.username, data.password);
+    } catch (err: any) {
+      const msg = err?.response?.data?.message ?? err?.message ?? 'Error al iniciar sesión';
+      alert(msg);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <>
@@ -20,13 +38,19 @@ const Login = () => {
           <CardBody className="grid p-6 justify-items-center text-center max-w-lg">
             <Image src={logoPrincipal} className="m-5 w-[217px] "></Image>
             <p className="text-xl m-4">¡Empieza a conectar tu comunidad ante buenas acciones!</p>
-            <div className="form w-100">
+            <Form onSubmit={handleSubmit(onSubmit)} className="w-full flex flex-col items-center">
               <CustomInput
                 customLabel="Correo Electrónico"
                 customPlaceholder="Ingresar correo"
                 customStart={<Image src={emailIcon} className="text-3xl shrink-0"></Image>}
                 customType="email"
                 isRequired
+                control={control}
+                name="username"
+                rules={{
+                  required: 'El correo es obligatorio',
+                  pattern: { value: /^\S+@\S+\.\S+$/, message: 'Formato de correo inválido' },
+                }}
               />
               <CustomInput
                 customLabel="Contraseña"
@@ -43,6 +67,12 @@ const Login = () => {
                 }
                 customType={show ? 'text' : 'password'}
                 isRequired
+                control={control}
+                name="password"
+                rules={{
+                  required: 'La contraseña es obligatoria',
+                  minLength: { value: 8, message: 'Mínimo 8 caracteres' },
+                }}
               />
               <p
                 onClick={() => console.log('Abrir modal!')}
@@ -50,14 +80,22 @@ const Login = () => {
               >
                 Recuperar Contraseña
               </p>
-            </div>
 
-            <Button
-              onClick={() => navigate('/dashboard')}
-              className="w-60 mt-8 mb-5 bg-blue-950 text-blue-100 rounded-sm"
-            >
-              Ingresar
-            </Button>
+              <Button
+                type="submit"
+                className="w-60 mt-8 mb-5 bg-blue-950 text-blue-100 rounded-sm disabled:bg-gray-700"
+                disabled={loading}
+              >
+                {loading ? (
+                  <span className="inline-flex items-center gap-4">
+                    <Spinner className="w-3 h-3 mr-2" size="sm" variant="spinner" color="white" />{' '}
+                    Cargando
+                  </span>
+                ) : (
+                  'Ingresar'
+                )}
+              </Button>
+            </Form>
           </CardBody>
         </Card>
       </div>

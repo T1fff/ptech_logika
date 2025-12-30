@@ -1,12 +1,7 @@
 
 import api from "@/api/axios";
-import type { LoginResponse } from "@/types/auth";
 
-export const loginRequest = async (email: string, password: string) => {
-  const res = await api.post<LoginResponse>('/auth/login', { email, password });
+export const loginRequest = async (username: string, password: string) => {
+  const res = await api.post<string>('/Authentication/Login', { username, password });
   return res.data; // { token }
-};
-
-export const logoutRequest = async () => {
-  return Promise.resolve();
 };
