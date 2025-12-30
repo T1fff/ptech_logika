@@ -128,3 +128,37 @@ export const impactoMockData: ImpactoMockData = {
     { region: 'Orinoquía', percentage: 7, value: 3167 },
   ],
 };
+
+export const testimonialsMockData: Testimonial[] = [
+  {
+    id: 1,
+    name: 'Sofía Ramírez',
+    community: 'Fundación Manos Amigas',
+    text: 'Gracias a las Bakanas, hemos podido llegar a más comunidades y hacer una diferencia real en sus vidas.',
+  },
+  {
+    id: 2,
+    name: 'Javier López',
+    community: 'EcoVida',
+    text: 'La plataforma nos ha facilitado la organización de nuestras actividades y la movilización de voluntarios.',
+  },
+  {
+    id: 3,
+    name: 'Camila Fernández',
+    community: 'Alimentos para Todos',
+    text: 'Hemos incrementado nuestras donaciones y el impacto social gracias al apoyo de las Bakanas.',
+  },
+  {
+    id: 4,
+    name: 'Diego Martínez',
+    community: 'Salud y Vida',
+    text: 'La visibilidad que hemos ganado nos ha permitido colaborar con más aliados y expandir nuestro alcance.',
+  },
+  {
+    id: 5,
+    name: 'Valentina Gómez',
+    community: 'Jardines Comunitarios',
+    text: 'Ser parte de esta iniciativa nos ha dado las herramientas para crear un cambio sostenible en nuestra comunidad.',
+  }
+
+];

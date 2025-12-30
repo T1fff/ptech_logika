@@ -24,7 +24,7 @@ export const OPTIONSMENU: MenuItem[] = [
     id: 2,
     label: 'Comunidad',
     icon: community,
-    route: '/dashboard/comunidad',
+    route: '/dashboard/community',
   },
   {
     id: 3,
@@ -48,13 +48,13 @@ export const OPTIONSMENU: MenuItem[] = [
     id: 6,
     label: 'Contenidos',
     icon: contentCopy,
-    route: '/dashboard/contenidos',
+    route: '/dashboard/contents',
   },
   {
     id: 7,
     label: 'Categorías de acciones',
     icon: category,
-    route: '/dashboard/categorias',
+    route: '/dashboard/categories',
   },
 ];
 
