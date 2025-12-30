@@ -3,7 +3,7 @@ import { Image } from '@heroui/react';
 import logoBlanco from '@assets/navbar/Blanco.svg';
 import type { ReactNode } from 'react';
 
-export const Dashboard = ({ children }: { children: ReactNode }) => {
+export const DashContainer = ({ children }: { children: ReactNode }) => {
   return (
     <>
       <div className="w-screen min-h-screen grid" style={{ gridTemplateRows: '64px 1fr' }}>
@@ -19,4 +19,4 @@ export const Dashboard = ({ children }: { children: ReactNode }) => {
     </>
   );
 };
-export default Dashboard;
+export default DashContainer;

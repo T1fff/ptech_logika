@@ -4,10 +4,16 @@ import logoNavbar from '@assets/navbar/navBarLogo.svg';
 import logout from '@assets/navbar/logout.svg';
 
 import OPTIONSMENU from '@/constants/navbar';
+import { useNavigate } from 'react-router';
 
 const Navbar = () => {
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
+  const navigate = useNavigate();
 
+  const handleOnClick = (index: number, path: string) => {
+    setSelectedIndex(index);
+    navigate(path);
+  };
   return (
     <>
       <div className="flex flex-col justify-between w-[230px] h-full">
@@ -22,7 +28,7 @@ const Navbar = () => {
                   role="button"
                   tabIndex={0}
                   aria-current={isSelected ? 'page' : undefined}
-                  onClick={() => setSelectedIndex(op.id)}
+                  onClick={() => handleOnClick(op.id, op.route || '/')}
                   className={
                     'p-4 flex items-center w-full gap-2 hover:bg-blue-100/75 transition delay-100 duration-200 ease-in-out ' +
                     (isSelected ? 'bg-blue-100 font-semibold' : 'font-normal')
@@ -45,5 +51,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
-
