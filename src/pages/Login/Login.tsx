@@ -7,7 +7,7 @@ import eyeOnIcon from '@assets/login/eyeOn.svg';
 
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
-import CustomInput from '@/components/customInput';
+import CustomInput from '@/components/CustomInput';
 
 const Login = () => {
   const [show, setShow] = useState(false);
