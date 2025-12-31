@@ -4,7 +4,7 @@ import type { AxiosResponse } from 'axios';
 const STORAGE_KEY = 'auth-token';
 
 export const getAcciones = async (page = 1, pageSize = 10): Promise<AxiosResponse<any>> => {
-  const pageNumber = page; // usa page directamente (1-based)
+  const pageNumber = page; 
 
   const token = localStorage.getItem(STORAGE_KEY);
 

@@ -208,7 +208,7 @@ const CustomTable = () => {
           value={searchQuery}
           labelPlacement="outside"
           onChange={(e) => {
-            setSearchQuery(e.target.value); // ← Actualizar el estado
+            setSearchQuery(e.target.value); 
           }}
           startContent={
             <Image
@@ -380,7 +380,7 @@ const CustomTable = () => {
 
             <form onSubmit={handleSubmit(creating ? handleCreate : handleSaveEdit)}>
               <div className="grid grid-cols-1 gap-4">
-                {/* Campo Nombre */}
+                
                 <div>
                   <label className="text-sm block mb-1">
                     Nombre <span className="text-red-500">*</span>
@@ -402,7 +402,7 @@ const CustomTable = () => {
                   )}
                 </div>
 
-                {/* Campo Descripción */}
+               
                 <div>
                   <label className="text-sm block mb-1">Descripción</label>
                   <textarea
@@ -418,7 +418,7 @@ const CustomTable = () => {
                   />
                 </div>
 
-                {/* Campo Color */}
+               
                 <div>
                   <label className="text-sm block mb-1">
                     Color (hex) <span className="text-red-500">*</span>
@@ -448,7 +448,7 @@ const CustomTable = () => {
                   )}
                 </div>
 
-                {/* Campo Estado */}
+                
                 <div>
                   <label className="text-sm block mb-1">Estado</label>
                   <select
@@ -462,7 +462,7 @@ const CustomTable = () => {
                   </select>
                 </div>
 
-                {/* Campo Icono/Imagen */}
+               
                 <div className="w-full">
                   <label className="text-sm block mb-1">Icono (imagen)</label>
                   <input
@@ -485,7 +485,7 @@ const CustomTable = () => {
                 </div>
               </div>
 
-              {/* Botones */}
+             
               <div className="mt-6 flex justify-end gap-3">
                 <button
                   type="button"
