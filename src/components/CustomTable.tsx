@@ -13,13 +13,16 @@ import {
   Spinner,
   Image,
   Input,
+  addToast,
 } from '@heroui/react';
-import { getAcciones } from '@/services/accionesServices';
+import { createAccion, getAcciones } from '@/services/accionesServices';
 import { useAccionesStore } from '@/stores/useAccionesStore';
-import type { Accion } from '@/types/acciones';
+import type { Accion, AccionFormData } from '@/types/acciones';
 import editIcon from '@assets/table/edit.svg';
 import deleteIcon from '@assets/table/delete.svg';
 import physical_therapy from '@assets/table/physical_therapy.svg';
+import { FileUploader } from 'react-drag-drop-files';
+import { useForm } from 'react-hook-form';
 
 const ROWS_PER_PAGE_OPTIONS = [5, 10, 20];
 
@@ -32,6 +35,8 @@ const formatDate = (iso?: string) => {
     return iso;
   }
 };
+
+const fileTypes = ['JPG', 'PNG', 'GIF'];
 
 const CustomTable = () => {
   const setItems = useAccionesStore((s) => s.setItems);
@@ -48,32 +53,57 @@ const CustomTable = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [searchQuery, setSearchQuery] = useState('');
+  const [file, setFile] = useState(null);
+
+  const handleChange = (file) => {
+    setFile(file);
+  };
 
   const [editing, setEditing] = useState<Accion | null>(null);
   const [creating, setCreating] = useState(false);
 
   const [formValues, setFormValues] = useState<Partial<Accion>>({});
 
-  useEffect(() => {
-    (async () => {
-      setLoading(true);
-      setError(null);
-      try {
-        const res = await getAcciones(page, rowsPerPage);
+  const fetchAcciones = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await getAcciones(page, rowsPerPage);
+      const data = res && (res as any).data ? (res as any).data : res;
+      setItems(data.data);
+      setTotalItems(data.totalElements);
+      setTotalPages(data.totalPages);
+    } catch (err: any) {
+      console.error('getAcciones error', err);
+      setError(err?.message ?? 'Error al cargar acciones');
+    } finally {
+      setLoading(false);
+    }
+  };
 
-        const data = res && (res as any).data ? (res as any).data : res;
-        setItems(data.data);
-        setTotalItems(data.totalElements);
-        setTotalPages(data.totalPages);
-      } catch (err: any) {
-        console.error('getAcciones error', err);
-        setError(err?.message ?? 'Error al cargar acciones');
-      } finally {
-        setLoading(false);
-      }
-    })();
+  useEffect(() => {
+    fetchAcciones();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, rowsPerPage]);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+    setValue,
+    watch,
+  } = useForm<AccionFormData>({
+    defaultValues: {
+      name: '',
+      description: '',
+      color: '#888888',
+      status: 1,
+      icon: null,
+    },
+  });
+
+  const watchIcon = watch('icon');
 
   const handleDelete = (id: string) => {
     removeItem(id);
@@ -102,18 +132,44 @@ const CustomTable = () => {
     closeEditor();
   };
 
-  const handleCreate = () => {
-    const newItem: Accion = {
-      id: String(Date.now()),
-      name: (formValues.name as string) ?? 'Nueva acción',
-      description: (formValues.description as string) ?? '',
-      icon: (formValues.icon as string) ?? '',
-      color: formValues.color ?? '#dddddd',
-      status: Number(formValues.status ?? 1),
-      createdAt: new Date().toISOString(),
-    };
-    addItem(newItem);
-    closeEditor();
+  const handleCreate = async (data: AccionFormData) => {
+    try {
+      const formData = new FormData();
+      formData.append('name', data.name);
+      formData.append('description', data.description);
+      formData.append('color', data.color);
+      formData.append('status', String(data.status));
+      if (data.icon) {
+        formData.append('icon', data.icon);
+      }
+
+      const response = await createAccion(formData);
+      addItem(response.data);
+
+      addToast({
+        title: 'Creación exitosa',
+        description: 'Acción creada exitosamente',
+        timeout: 3000,
+        shouldShowTimeoutProgress: true,
+        color: 'success',
+      });
+
+      closeEditor();
+      await fetchAcciones();
+    } catch (error) {
+      addToast({
+        title: 'Creación fallida',
+        description: 'Error al crear acción',
+        timeout: 3000,
+        shouldShowTimeoutProgress: true,
+        color: 'danger',
+      });
+      console.error('Error al crear acción:', error);
+    }
+  };
+
+  const handleFileChange = (file: File) => {
+    setValue('icon', file);
   };
 
   const filteredItems = searchQuery
@@ -318,80 +374,122 @@ const CustomTable = () => {
               {creating ? 'Crear acción' : 'Editar acción'}
             </h3>
 
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="text-sm block mb-1">Nombre</label>
-                <input
-                  value={formValues.name ?? ''}
-                  onChange={(e) => setFormValues((s: any) => ({ ...s, name: e.target.value }))}
-                  className="w-full border px-3 py-2 rounded"
-                />
+            <form onSubmit={handleSubmit(creating ? handleCreate : handleSaveEdit)}>
+              <div className="grid grid-cols-1 gap-4">
+                {/* Campo Nombre */}
+                <div>
+                  <label className="text-sm block mb-1">
+                    Nombre <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    {...register('name', {
+                      required: 'El nombre es requerido',
+                      minLength: {
+                        value: 3,
+                        message: 'El nombre debe tener al menos 3 caracteres',
+                      },
+                    })}
+                    className={`w-full border px-3 py-2 rounded ${
+                      errors.name ? 'border-red-500' : 'border-gray-300'
+                    }`}
+                  />
+                  {errors.name && (
+                    <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>
+                  )}
+                </div>
+
+                {/* Campo Descripción */}
+                <div>
+                  <label className="text-sm block mb-1">Descripción</label>
+                  <textarea
+                    {...register('description')}
+                    className="w-full border border-gray-300 px-3 py-2 rounded"
+                    rows={3}
+                  />
+                </div>
+
+                {/* Campo Color */}
+                <div>
+                  <label className="text-sm block mb-1">
+                    Color (hex) <span className="text-red-500">*</span>
+                  </label>
+                  <div className="flex gap-2">
+                    <input
+                      {...register('color', {
+                        required: 'El color es requerido',
+                        pattern: {
+                          value: /^#[0-9A-Fa-f]{6}$/,
+                          message: 'Formato de color inválido (ejemplo: #FF5733)',
+                        },
+                      })}
+                      className={`flex-1 border px-3 py-2 rounded ${
+                        errors.color ? 'border-red-500' : 'border-gray-300'
+                      }`}
+                      placeholder="#FF5733"
+                    />
+                    <input
+                      type="color"
+                      {...register('color')}
+                      className="w-12 h-10 rounded cursor-pointer"
+                    />
+                  </div>
+                  {errors.color && (
+                    <p className="text-red-500 text-xs mt-1">{errors.color.message}</p>
+                  )}
+                </div>
+
+                {/* Campo Estado */}
+                <div>
+                  <label className="text-sm block mb-1">Estado</label>
+                  <select
+                    {...register('status')}
+                    className="w-full border border-gray-300 px-3 py-2 rounded"
+                  >
+                    <option value={1}>Activo</option>
+                    <option value={0}>Inactivo</option>
+                  </select>
+                </div>
+
+                {/* Campo Icono/Imagen */}
+                <div className="w-full">
+                  <label className="text-sm block mb-1">Icono (imagen)</label>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (file) {
+                        handleFileChange(file);
+                      }
+                    }}
+                    className="w-full border border-gray-300 px-3 py-2 rounded"
+                  />
+                  {watchIcon && (
+                    <p className="text-xs text-gray-500 mt-1">
+                      Archivo seleccionado: {watchIcon.name}
+                    </p>
+                  )}
+                </div>
               </div>
 
-              <div>
-                <label className="text-sm block mb-1">Icono (emoji o URL)</label>
-                <input
-                  value={formValues.icon ?? ''}
-                  onChange={(e) => setFormValues((s: any) => ({ ...s, icon: e.target.value }))}
-                  className="w-full border px-3 py-2 rounded"
-                />
-              </div>
-
-              <div className="col-span-2">
-                <label className="text-sm block mb-1">Descripción</label>
-                <textarea
-                  value={formValues.description ?? ''}
-                  onChange={(e) =>
-                    setFormValues((s: any) => ({ ...s, description: e.target.value }))
-                  }
-                  className="w-full border px-3 py-2 rounded"
-                  rows={3}
-                />
-              </div>
-
-              <div>
-                <label className="text-sm block mb-1">Color (hex)</label>
-                <input
-                  value={formValues.color ?? ''}
-                  onChange={(e) => setFormValues((s: any) => ({ ...s, color: e.target.value }))}
-                  className="w-full border px-3 py-2 rounded"
-                  placeholder="#ff5667"
-                />
-              </div>
-
-              <div>
-                <label className="text-sm block mb-1">Estado</label>
-                <select
-                  value={String(formValues.status ?? 1)}
-                  onChange={(e) =>
-                    setFormValues((s: any) => ({ ...s, status: Number(e.target.value) }))
-                  }
-                  className="w-full border px-3 py-2 rounded"
-                >
-                  <option value={1}>Activo</option>
-                  <option value={0}>Inactivo</option>
-                </select>
-              </div>
-            </div>
-
-            <div className="mt-6 flex justify-end gap-3">
-              <button onClick={closeEditor} className="px-4 py-2 rounded border">
-                Cancelar
-              </button>
-
-              {creating ? (
-                <button onClick={handleCreate} className="px-4 py-2 rounded bg-blue-900 text-white">
-                  Crear
-                </button>
-              ) : (
+              {/* Botones */}
+              <div className="mt-6 flex justify-end gap-3">
                 <button
-                  onClick={handleSaveEdit}
-                  className="px-4 py-2 rounded bg-blue-900 text-white"
+                  type="button"
+                  onClick={closeEditor}
+                  className="px-4 py-2 rounded border border-gray-300 hover:bg-gray-50"
                 >
-                  Guardar
+                  Cancelar
                 </button>
-              )}
-            </div>
+
+                <button
+                  type="submit"
+                  className="px-4 py-2 rounded bg-blue-900 text-white hover:bg-blue-800"
+                >
+                  {creating ? 'Crear' : 'Guardar'}
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       )}

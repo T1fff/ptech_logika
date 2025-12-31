@@ -27,3 +27,11 @@ export type AccionesState = {
   removeItem: (id: string) => void;
   clear: () => void;
 };
+
+export type AccionFormData = {
+  name: string;
+  description: string;
+  color: string;
+  status: number;
+  icon: File | null;
+};
