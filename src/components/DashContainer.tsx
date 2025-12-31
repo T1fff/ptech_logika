@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import { Image } from '@heroui/react';
-import logoBlanco from '@assets/navbar/Blanco.svg';
+import logoBlanco from '@assets/navbar/blanco.svg';
 import type { ReactNode } from 'react';
 
 export const DashContainer = ({ children }: { children: ReactNode }) => {
