@@ -1,6 +1,5 @@
-import CustomTable from '@/components/CustomTable';
+import CustomTable from './CustomTable';
 import DashContainer from '@/components/DashContainer';
-import { Divider } from '@heroui/react';
 
 const Bakanes = () => {
   return (
