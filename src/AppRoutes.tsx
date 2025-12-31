@@ -10,16 +10,25 @@ import Marketplace from './pages/Dashboard/Marketplace';
 import { useAuth } from '@/hooks/useAuth';
 
 import type { ReactNode } from 'react';
+import Bakanes from './pages/Dashboard/Bakanes';
 
 type Props = {
   children: ReactNode;
 };
+const STORAGE_KEY = 'auth-token';
 
 const PrivateRoute: React.FC<Props> = ({ children }) => {
   const { isAuthenticated } = useAuth();
 
-  return isAuthenticated ? <>{children}</> : <Navigate to="/login" replace />;
+  // lectura sincrónica del token en localStorage para evitar redirección prematura
+  const tokenFromStorage = typeof window !== 'undefined' ? localStorage.getItem(STORAGE_KEY) : null;
+
+  // autenticado si el contexto dice true OR si hay token en localStorage
+  const isAuth = Boolean(isAuthenticated || tokenFromStorage);
+
+  return isAuth ? <>{children}</> : <Navigate to="/login" replace />;
 };
+
 
 function AppRoutes() {
   return (
@@ -41,6 +50,7 @@ function AppRoutes() {
         <Route path="impacto-social" element={<SocialImpact />} />
         <Route path="community" element={<Community />} />
         <Route path="sponsors" element={<Sponsors />} />
+        <Route path='bakanes' element={<Bakanes />} />
         <Route path="marketplace" element={<Marketplace />} />
         <Route path="contents" element={<Contents />} />
         <Route path="categories" element={<Categories />} />
