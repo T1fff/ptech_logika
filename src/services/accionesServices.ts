@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import api2 from '@/api/axios2';
-import { useAuthStore } from '@/stores/useAuthStore';
 import type { AxiosResponse } from 'axios';
 const STORAGE_KEY = 'auth-token';
 

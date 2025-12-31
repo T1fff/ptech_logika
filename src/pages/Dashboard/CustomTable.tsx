@@ -21,7 +21,6 @@ import type { Accion, AccionFormData } from '@/types/acciones';
 import editIcon from '@assets/table/edit.svg';
 import deleteIcon from '@assets/table/delete.svg';
 import physical_therapy from '@assets/table/physical_therapy.svg';
-import { FileUploader } from 'react-drag-drop-files';
 import { useForm } from 'react-hook-form';
 
 const ROWS_PER_PAGE_OPTIONS = [5, 10, 20];
@@ -35,8 +34,6 @@ const formatDate = (iso?: string) => {
     return iso;
   }
 };
-
-const fileTypes = ['JPG', 'PNG', 'GIF'];
 
 const CustomTable = () => {
   const setItems = useAccionesStore((s) => s.setItems);
@@ -53,11 +50,6 @@ const CustomTable = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [searchQuery, setSearchQuery] = useState('');
-  const [file, setFile] = useState(null);
-
-  const handleChange = (file) => {
-    setFile(file);
-  };
 
   const [editing, setEditing] = useState<Accion | null>(null);
   const [creating, setCreating] = useState(false);
@@ -111,13 +103,25 @@ const CustomTable = () => {
 
   const openEdit = (item: Accion) => {
     setEditing(item);
-    setFormValues({ ...item });
+    reset({
+      name: item.name,
+      description: item.description || '',
+      color: item.color || '#888888',
+      status: item.status,
+      icon: null,
+    });
   };
 
   const closeEditor = () => {
     setEditing(null);
     setCreating(false);
-    setFormValues({});
+    reset({
+      name: '',
+      description: '',
+      color: '#888888',
+      status: 1,
+      icon: null,
+    });
   };
 
   const handleSaveEdit = () => {
@@ -402,7 +406,13 @@ const CustomTable = () => {
                 <div>
                   <label className="text-sm block mb-1">Descripción</label>
                   <textarea
-                    {...register('description')}
+                    {...register('description', {
+                      required: 'La descripción es requerida',
+                      minLength: {
+                        value: 2,
+                        message: 'La descripción debe tener al menos 10 caracteres',
+                      },
+                    })}
                     className="w-full border border-gray-300 px-3 py-2 rounded"
                     rows={3}
                   />
@@ -442,7 +452,9 @@ const CustomTable = () => {
                 <div>
                   <label className="text-sm block mb-1">Estado</label>
                   <select
-                    {...register('status')}
+                    {...register('status', {
+                      required: 'El estado es requerido',
+                    })}
                     className="w-full border border-gray-300 px-3 py-2 rounded"
                   >
                     <option value={1}>Activo</option>
@@ -463,6 +475,7 @@ const CustomTable = () => {
                       }
                     }}
                     className="w-full border border-gray-300 px-3 py-2 rounded"
+                    required={creating}
                   />
                   {watchIcon && (
                     <p className="text-xs text-gray-500 mt-1">
